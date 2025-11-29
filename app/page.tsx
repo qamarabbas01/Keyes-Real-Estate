@@ -1,0 +1,21 @@
+import { Header } from "@/components/header"
+import { Hero } from "@/components/hero"
+import { FeaturedProperties } from "@/components/featured-properties"
+import { MeetAgent } from "@/components/meet-agent"
+import { Testimonials } from "@/components/testimonials"
+import { Footer } from "@/components/footer"
+import { MeetTeam } from "@/components/meet-team"
+
+export default function Home() {
+  return (
+    <main className="min-h-screen">
+      <Header />
+      <Hero />
+      <FeaturedProperties />
+      <MeetAgent />
+      <MeetTeam />
+      <Testimonials />
+      <Footer />
+    </main>
+  )
+}
