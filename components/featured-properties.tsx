@@ -1,71 +1,38 @@
 "use client"
 
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/Button"
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
 const properties = [
-  {
-    address: "1970 ADDISON WAY",
-    location: "EAGLE ROCK CA 90041",
-    price: "$1,100,000",
-    beds: 3,
-    baths: 1,
-    sqft: "1,296",
-    image: "/assets/property-1.jpg",
-  },
-  {
-    address: "471 HILL DRIVE",
-    location: "LOS ANGELES CA 90041",
-    price: "$2,500,000",
-    beds: 4,
-    baths: 3,
-    sqft: "2,800",
-    image: "/assets/property-2.jpg",
-  },
-  {
-    address: "7742 ISIS AVENUE",
-    location: "LOS ANGELES CA 90046",
-    price: "$3,200,000",
-    beds: 5,
-    baths: 4,
-    sqft: "3,500",
-    image: "/assets/property-3.jpg",
-  },
-  {
-    address: "2111 FOREST TRAIL",
-    location: "LOS ANGELES CA 90049",
-    price: "$4,800,000",
-    beds: 6,
-    baths: 5,
-    sqft: "4,200",
-    image: "/assets/property-4.jpg",
-  },
-  {
-    address: "3343 ATWATER AVENUE",
-    location: "LOS ANGELES CA 90039",
-    price: "$5,500,000",
-    beds: 5,
-    baths: 6,
-    sqft: "5,200",
-    image: "/assets/property-5.jpg",
-  },
-  {
-    address: "3343 ATWATER AVENUE",
-    location: "LOS ANGELES CA 90039",
-    price: "$5,500,000",
-    beds: 5,
-    baths: 6,
-    sqft: "5,200",
-    image: "/assets/property-5.jpg",
-  }
+  { address: "123 Malibu Crest Drive, Malibu", image: "/assets/property-1.jpg" },
+  { address: "456 Beverly Hills Boulevard, Beverly Hills", image: "/assets/property-2.jpg" },
+  { address: "789 Brentwood Park Lane, Brentwood", image: "/assets/property-3.jpg" },
+  { address: "321 Pacific Heights Avenue, Pacific Heights", image: "/assets/property-4.jpg" },
+  { address: "654 Santa Monica Pier Road, Santa Monica", image: "/assets/property-5.jpg" },
 ]
 
 export function FeaturedProperties() {
   const [isVisible, setIsVisible] = useState(false)
-  const [hoveredProperty, setHoveredProperty] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right')
+  const sectionRef = useRef(null)
+
+  const getCurrentProperties = () => {
+    const startIndex = currentSlide % properties.length
+    const displayProperties = []
+    
+    for (let i = 0; i < 5; i++) {
+      const index = (startIndex + i) % properties.length
+      displayProperties.push(properties[index])
+    }
+    
+    return displayProperties
+  }
+
+  const currentProperties = getCurrentProperties()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -84,103 +51,219 @@ export function FeaturedProperties() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (isPaused || !isVisible || isTransitioning) return
+
+    const interval = setInterval(() => {
+      setSlideDirection('right')
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % properties.length)
+        setTimeout(() => setIsTransitioning(false), 50)
+      }, 300)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [isPaused, isVisible, isTransitioning])
+
+  const handlePrevious = () => {
+    if (isTransitioning) return
+    setSlideDirection('left')
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev - 1 + properties.length) % properties.length)
+      setTimeout(() => setIsTransitioning(false), 50)
+    }, 300)
+  }
+
+  const handleNext = () => {
+    if (isTransitioning) return
+    setSlideDirection('right')
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % properties.length)
+      setTimeout(() => setIsTransitioning(false), 50)
+    }, 300)
+  }
+
   return (
-    <section ref={sectionRef} id="properties" className="relative">
-      <div className="bg-white pt-20 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div
-            className={`flex flex-col md:flex-row md:items-end md:justify-between gap-8 transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <div>
-              <p className="text-sm tracking-[0.3em] text-black mb-1 font-sans">FEATURED</p>
-              <h2 className="text-4xl md:text-5xl font-sans font-normal text-black">Properties</h2>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-none border-black bg-transparent hover:bg-black hover:text-white transition-colors text-black"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-none border-gray-400 text-xs tracking-wider px-6 bg-transparent hover:bg-gray-400 hover:text-white transition-colors text-gray-400"
-              >
-                VIEW MORE PROPERTIES
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-none border-gray-400 bg-transparent hover:bg-gray-400 hover:text-white transition-colors text-gray-400"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
+    <section
+      ref={sectionRef}
+      id="properties"
+      className="py-20 px-4 md:px-8 lg:px-12 bg-white"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div
+          className={`flex flex-col justify-center px-4 lg:px-8 py-8 lg:py-0 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          } text-center lg:text-left`}
+        >
+          <p className="text-[11px] tracking-[0.4em] text-gray-400 mb-3" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            FEATURED PROPERTIES
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-10" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            Our Properties
+          </h2>
+
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={handlePrevious}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              className="w-11 h-11 border border-gray-300 flex items-center justify-center hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors" 
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              aria-label="Previous property"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button 
+              className="h-11 px-4 bg-[#0033A0] text-white text-[9px] tracking-[0.2em] font-medium whitespace-nowrap hover:bg-[#00267a] transition-colors"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+            >
+              VIEW MORE PROPERTIES
+            </button>
+            <button 
+              onClick={handleNext}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              className="w-11 h-11 border border-gray-300 flex items-center justify-center hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors"
+              aria-label="Next property"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
-      </div>
 
-      <div className="relative">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-1 relative">
-            {properties.map((property, index) => (
-              <div
-                key={`property-${index}`}
-                className="relative group overflow-hidden aspect-4/3 cursor-pointer"
-                onMouseEnter={() => setHoveredProperty(index)}
-                onMouseLeave={() => setHoveredProperty(null)}
-              >
-                <div className="absolute inset-0 aspect-4/3 overflow-hidden">
-                  <Image
-                    src={property.image}
-                    alt={property.address}
-                    fill
-                    unoptimized
-                    className="object-cover scale-125 group-hover:scale-150 group-hover:opacity-60 transition-all duration-300"
-                    sizes="(max-width: 900px) 100vw, 33vw"
-                  />
-                </div>
+        <PropertyTile
+          property={currentProperties[0]}
+          isVisible={isVisible}
+          delay={100}
+          currentSlide={currentSlide}
+          slideDirection={slideDirection}
+          isTransitioning={isTransitioning}
+          className="border-l border-b border-white"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        />
 
-                <div className="absolute bottom-0 flex items-center justify-center p-4">
-                  <p className="text-white text-lg font-sans uppercase tracking-wider text-center">
-                    {property.address}
-                  </p>
-                </div>
+        <PropertyTile
+          property={currentProperties[1]}
+          isVisible={isVisible}
+          delay={200}
+          currentSlide={currentSlide}
+          slideDirection={slideDirection}
+          isTransitioning={isTransitioning}
+          className="border-l border-b border-white"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        />
+        </div>
 
-                <div
-                  className={`absolute inset-0 bg-[#20b8f7] border-2 border-white transition-all duration-300 ${
-                    hoveredProperty === index
-                      ? "opacity-100 scale-100 translate-y-0"
-                      : "opacity-0 scale-95 translate-y-4 pointer-events-none"
-                  }`}
-                  style={{
-                    zIndex: hoveredProperty === index ? 10 : 1,
-                  }}
-                >
-                  <div className="h-full flex flex-col justify-between p-6 text-white">
-                    <div>
-                      <h3 className="text-xl font-bold uppercase tracking-wider mb-2 font-sans">
-                        {property.address}
-                      </h3>
-                      <p className="text-sm mb-4 font-sans">{property.location}</p>
-                      <p className="text-sm mb-6 font-sans">
-                        {property.beds} BEDS | {property.baths} BATHS | {property.sqft} SQ. FT.
-                      </p>
-                      <p className="text-3xl font-bold font-sans">{property.price}</p>
-                    </div>
-                    <button className="border-2 border-white px-6 py-3 text-sm uppercase tracking-wider font-sans hover:bg-white hover:text-[#20b8f7] transition-colors">
-                      VIEW MORE DETAILS
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 mt-[2px] gap-[1.5px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          {currentProperties.slice(2).map((property, index) => (
+            <PropertyTile
+              key={`${property.address}-${currentSlide}-${index}`}
+              property={property}
+              isVisible={isVisible}
+              delay={300 + index * 100}
+              currentSlide={currentSlide}
+              slideDirection={slideDirection}
+              isTransitioning={isTransitioning}
+              className="border-r border-white last:border-r-0"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            />
+          ))}
         </div>
       </div>
     </section>
+  )
+}
+
+interface PropertyTileProps {
+  property: {
+    address: string
+    image: string
+  }
+  isVisible: boolean
+  delay: number
+  currentSlide: number
+  slideDirection: 'left' | 'right'
+  isTransitioning: boolean
+  className?: string
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
+}
+
+function PropertyTile({ property, isVisible, delay, currentSlide, slideDirection, isTransitioning, className = "", onMouseEnter, onMouseLeave }: PropertyTileProps) {
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  useEffect(() => {
+    if (isTransitioning) {
+      setIsAnimating(true)
+      const timer = setTimeout(() => setIsAnimating(false), 600)
+      return () => clearTimeout(timer)
+    }
+  }, [currentSlide, isTransitioning])
+
+  const getTransform = () => {
+    if (!isTransitioning || !isAnimating) return 'translateX(0) scale(1)'
+    if (slideDirection === 'right') {
+      return 'translateX(100%) scale(0.95)'
+    } else {
+      return 'translateX(-100%) scale(0.95)'
+    }
+  }
+
+  return (
+    <div
+      className={`relative group overflow-hidden aspect-[4/3] cursor-pointer transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      } ${className}`}
+      style={{ 
+        transitionDelay: isTransitioning ? "0ms" : `${delay}ms`,
+        transform: isTransitioning && isAnimating ? getTransform() : undefined,
+        opacity: isTransitioning && isAnimating ? 0 : 1,
+      }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <Image
+        src={property.image}
+        alt={property.address}
+        fill
+        className={`object-cover group-hover:scale-105 transition-transform duration-700 ${
+          isTransitioning && isAnimating ? 'scale-110' : ''
+        }`}
+        style={{
+          transition: isTransitioning ? 'transform 0.6s ease-in-out, opacity 0.6s ease-in-out' : undefined,
+        }}
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-0" />
+      <div className="absolute bottom-0 left-0 right-0 p-6 transition-opacity duration-300 group-hover:opacity-0">
+        <p className="text-white text-sm tracking-[0.1em]">{property.address}</p>
+      </div>
+
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="bg-[#0033A0]/95 w-full h-full flex flex-col items-center justify-center px-6 text-center">
+          <p
+            className="text-white text-lg md:text-xl tracking-[0.12em] mb-6"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
+            {property.address}
+          </p>
+          <button
+            className="border border-white text-white text-xs tracking-[0.2em] uppercase px-8 py-3 hover:bg-white hover:text-[#0033A0] transition-colors"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
+            VIEW MORE DETAILS
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

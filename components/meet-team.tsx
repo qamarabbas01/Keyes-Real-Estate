@@ -109,7 +109,7 @@ export function MeetTeam() {
             src="/assets/image.png"
             alt="Keyes Real Estate Team"
             fill
-            className="object-cover object-top grayscale"
+            className="object-cover object-top"
             priority
           />
 
