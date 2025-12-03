@@ -93,7 +93,7 @@ export function MeetTeam() {
         }`}
       >
         <p className="text-gray-400 text-sm md:text-base tracking-[0.4em] uppercase mb-2">M E E T</p>
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-gray-900">The Team</h2>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl text-gray-900">The Team</h2>
       </div>
 
       <div className="relative w-full h-[70vh] min-h-[500px]">
@@ -106,7 +106,7 @@ export function MeetTeam() {
           }`}
         >
           <Image
-            src="/assets/image.png"
+            src="/assets/team-image.png"
             alt="Keyes Real Estate Team"
             fill
             className="object-cover object-top"
@@ -118,7 +118,7 @@ export function MeetTeam() {
             style={{ clipPath: getColorClipPath() }}
           >
             <Image
-              src="/assets/image.png"
+              src="/assets/team-image.png"
               alt="Keyes Real Estate Team"
               fill
               className="object-cover object-top"
@@ -157,12 +157,6 @@ export function MeetTeam() {
             />
           ))}
         </div>
-
-        <div
-          className={`absolute left-0 top-1/3 w-1 h-32 bg-cyan-500 transition-all duration-700 delay-700 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
-        />
       </div>
     </section>
   )

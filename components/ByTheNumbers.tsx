@@ -8,7 +8,7 @@ export default function ByTheNumbers() {
 
   return (
     <section
-      className="relative bg-center bg-cover my-8"
+      className="relative bg-center bg-cover"
       style={{
         backgroundImage:
           "linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)), url('/assets/hero-1.jpg')",
