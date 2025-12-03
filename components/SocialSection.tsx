@@ -58,7 +58,7 @@ export function SocialSection() {
               {instagramPosts.map((post, index) => (
                 <a
                   key={post.id}
-                  href="https://www.instagram.com/keyesrealestatela"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`relative aspect-square overflow-hidden group transition-all duration-500 ${
@@ -92,7 +92,7 @@ export function SocialSection() {
               {youtubeVideos.map((video, index) => (
                 <a
                   key={video.id}
-                  href="https://www.youtube.com/channel/UCGYnpm0WIVImxW9Z3826ftw"
+                  href="#"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`relative aspect-video bg-black overflow-hidden group transition-all duration-500 ${
