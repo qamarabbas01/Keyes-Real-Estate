@@ -6,6 +6,7 @@ import { Testimonials } from "@/components/testimonials"
 import { Footer } from "@/components/footer"
 import { MeetTeam } from "@/components/meet-team"
 import { DirectionalFlow } from "@/components/DirectionalFlow"
+import ByTheNumbers from "@/components/ByTheNumbers"
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <FeaturedProperties />
       <MeetAgent />
       <DirectionalFlow />
+      <ByTheNumbers />
       <MeetTeam />
       <Testimonials />
       <Footer />

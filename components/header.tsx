@@ -169,25 +169,6 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <Link
-                href="tel:310.486.9417"
-                className="hidden md:flex items-center gap-2 border text-white transition-all duration-300 hover:bg-[#20b8f7] hover:text-black"
-                style={{
-                  fontSize: "24px",
-                  letterSpacing: "0.05em",
-                  fontWeight: 500,
-                  padding: "8px 14px",
-                  borderColor: "#20b8f7",
-                  borderWidth: "1px",
-                  fontFamily: "'Montserrat', sans-serif"
-                }}  
-              >
-                <Phone 
-                  style={{ width: "24px", height: " 24px" }} 
-                />
-                310.486.9417
-              </Link>
-              
               <button
                 className="text-white transition-all duration-300 md:hidden"
                 style={{ 
