@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer"
 import { MeetTeam } from "@/components/meet-team"
 import { DirectionalFlow } from "@/components/DirectionalFlow"
 import ByTheNumbers from "@/components/ByTheNumbers"
+import { InteractiveMapValuation } from "@/components/InteractiveMapValuation"
+import { SocialSection } from "@/components/SocialSection"
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       <ByTheNumbers />
       <MeetTeam />
       <Testimonials />
+      <InteractiveMapValuation />
+      <SocialSection />
       <Footer />
     </main>
   )
