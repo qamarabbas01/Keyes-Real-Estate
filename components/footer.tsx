@@ -33,7 +33,7 @@ export function Footer() {
     <>
       <footer id="contact" className="relative bg-[#2a2a2a] text-white overflow-hidden">
         <div className="absolute left-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none">
-          <div className="h-full w-full bg-gradient-to-r from-transparent to-[#2a2a2a]" 
+          <div className="h-full w-full bg-linear-to-r from-transparent to-[#2a2a2a]" 
             style={{
               backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"200\" height=\"400\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M100 0 L80 100 L120 100 Z M90 100 L70 200 L110 200 Z M100 200 L60 300 L140 300 Z\" fill=\"white\" opacity=\"0.1\"/%3E%3C/svg%3E')",
               backgroundRepeat: "no-repeat",
@@ -100,25 +100,25 @@ export function Footer() {
                   href="tel:310.486.9417"
                   className="flex items-center gap-3 text-white hover:text-[#20b8f7] transition-colors"
                 >
-                  <Phone className="w-4 h-4 flex-shrink-0" />
+                  <Phone className="w-4 h-4 shrink-0" />
                   <span>310.486.9417</span>
                 </a>
                 <a
                   href="mailto:info@keyesLA.com"
                   className="flex items-center gap-3 text-white hover:text-[#20b8f7] transition-colors"
                 >
-                  <Mail className="w-4 h-4 flex-shrink-0" />
+                  <Mail className="w-4 h-4 shrink-0" />
                   <span>info@keyesLA.com</span>
                 </a>
                 <div className="flex items-start gap-3 text-white">
-                  <MapPin className="w-4 h-4 flex-shrink-0 mt-1" />
+                  <MapPin className="w-4 h-4 shrink-0 mt-1" />
                   <div className="flex flex-col gap-2">
                     <span>1412 Colorado Boulevard, Los Angeles, CA 90041</span>
                     <span>15113 W Sunset Boulevard, Ste 3 Pacific Palisades, CA 90272</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-white">
-                  <Building className="w-4 h-4 flex-shrink-0" />
+                  <Building className="w-4 h-4 shrink-0" />
                   <span>CalDRE #01912382</span>
                 </div>
               </div>

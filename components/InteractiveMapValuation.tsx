@@ -41,7 +41,7 @@ export function InteractiveMapValuation() {
               <div className="relative">
                 <div className="absolute -top-4 left-0 right-0 h-8 bg-[#4FBDBA] -z-10" />
 
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-4/3 overflow-hidden">
                   <Image
                     src="/assets/Interactive-img.jpg"
                     alt="Aerial view of Malibu coastal homes"
@@ -66,7 +66,7 @@ export function InteractiveMapValuation() {
               <div className="relative">
                 <div className="absolute -top-4 left-0 right-0 h-8 bg-[#4FBDBA] -z-10" />
 
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-4/3 overflow-hidden">
                   <Image
                     src="/assets/MapValuation.jpg"
                     alt="Luxury home entrance with blue gate"

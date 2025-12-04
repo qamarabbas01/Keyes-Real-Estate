@@ -125,7 +125,7 @@ export function Testimonials() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto relative">
               <button
                 onClick={handlePrev}
-                className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-10 h-10 rounded-full bg-white border-2 border-gray-300 shadow-lg flex items-center justify-center hover:bg-gray-50 hover:border-[#20b8f7] transition-all z-20"
+                className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-10 h-10 rounded-full bg-white border-2 border-gray-300 shadow-lg items-center justify-center hover:bg-gray-50 hover:border-[#20b8f7] transition-all z-20"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="w-5 h-5 text-gray-700" />
@@ -221,7 +221,7 @@ export function Testimonials() {
 
               <button
                 onClick={handleNext}
-                className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-10 h-10 rounded-full bg-white border-2 border-gray-300 shadow-lg flex items-center justify-center hover:bg-gray-50 hover:border-[#20b8f7] transition-all z-20"
+                className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-10 h-10 rounded-full bg-white border-2 border-gray-300 shadow-lg items-center justify-center hover:bg-gray-50 hover:border-[#20b8f7] transition-all z-20"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="w-5 h-5 text-gray-700" />

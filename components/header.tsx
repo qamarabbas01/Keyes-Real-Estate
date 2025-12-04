@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Menu, Phone, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export function Header() {
@@ -17,7 +17,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -31,10 +30,6 @@ export function Header() {
 
   return (
     <>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Qwigley&family=Montserrat:wght@400;500;600;700&display=swap');
-      `}</style>
-      
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled ? 'bg-black' : 'bg-transparent'
@@ -148,9 +143,9 @@ export function Header() {
               </div>
 
               {[
-                { label: "OUR TEAM", href: "#our-team" },
-                { label: "PRESS", href: "#press" },
-                { label: "CONTACT", href: "#contact" }
+                { label: "OUR TEAM", href: "#" },
+                { label: "PRESS", href: "#" },
+                { label: "CONTACT", href: "#" }
               ].map((item) => (
                 <Link
                   key={item.label}
@@ -206,11 +201,10 @@ export function Header() {
 
               <div className="h-full overflow-y-auto py-16 px-12">
                 <div className="flex flex-col md:flex-row gap-16">
-                  {/* Left Column */}
                   <div className="flex-1 space-y-12">
                     <div>
                       <Link
-                        href="#home"
+                        href="#"
                         className="block text-white text-4xl font-bold mb-6 hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -243,7 +237,7 @@ export function Header() {
 
                     <div className="space-y-6">
                       <Link
-                        href="#interactive-map"
+                        href="#"
                         className="block text-white text-2xl font-semibold hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -251,7 +245,7 @@ export function Header() {
                         INTERACTIVE MAP
                       </Link>
                       <Link
-                        href="#our-team"
+                        href="#"
                         className="block text-white text-2xl font-semibold hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -261,11 +255,10 @@ export function Header() {
                     </div>
                   </div>
 
-                  {/* Right Column */}
                   <div className="flex-1 space-y-12">
                     <div className="space-y-6">
                       <Link
-                        href="#property-valuation"
+                        href="#"
                         className="block text-white text-2xl font-semibold hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -273,7 +266,7 @@ export function Header() {
                         PROPERTY VALUATION
                       </Link>
                       <Link
-                        href="#press"
+                        href="#"
                         className="block text-white text-2xl font-semibold hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -281,7 +274,7 @@ export function Header() {
                         PRESS
                       </Link>
                       <Link
-                        href="#contact"
+                        href="#"
                         className="block text-white text-2xl font-semibold hover:opacity-80 transition-opacity"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
@@ -290,7 +283,6 @@ export function Header() {
                       </Link>
                     </div>
 
-                    {/* Contact Info */}
                     <div className="pt-12 border-t border-white/30 space-y-6">
                       <a
                         href="tel:310.486.9417"
@@ -310,7 +302,6 @@ export function Header() {
                   </div>
                 </div>
 
-                {/* Social Icons - Right Side */}
                 <div className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4">
                   {['facebook', 'instagram', 'twitter', 'linkedin', 'youtube', 'vimeo', 'google'].map((social) => (
                     <a

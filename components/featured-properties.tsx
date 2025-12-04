@@ -162,7 +162,7 @@ export function FeaturedProperties() {
         />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 mt-[2px] gap-[1.5px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 mt-0.5 gap-[1.5px]" style={{ fontFamily: "'Montserrat', sans-serif" }}>
           {currentProperties.slice(2).map((property, index) => (
             <PropertyTile
               key={`${property.address}-${currentSlide}-${index}`}
@@ -203,9 +203,12 @@ function PropertyTile({ property, isVisible, delay, currentSlide, slideDirection
 
   useEffect(() => {
     if (isTransitioning) {
-      setIsAnimating(true)
-      const timer = setTimeout(() => setIsAnimating(false), 600)
-      return () => clearTimeout(timer)
+      const startTimer = setTimeout(() => setIsAnimating(true), 0)
+      const endTimer = setTimeout(() => setIsAnimating(false), 600)
+      return () => {
+        clearTimeout(startTimer)
+        clearTimeout(endTimer)
+      }
     }
   }, [currentSlide, isTransitioning])
 
@@ -220,7 +223,7 @@ function PropertyTile({ property, isVisible, delay, currentSlide, slideDirection
 
   return (
     <div
-      className={`relative group overflow-hidden aspect-[4/3] cursor-pointer transition-all duration-700 ${
+      className={`relative group overflow-hidden aspect-4/3 cursor-pointer transition-all duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       } ${className}`}
       style={{ 
@@ -243,9 +246,9 @@ function PropertyTile({ property, isVisible, delay, currentSlide, slideDirection
         }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-0" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-0" />
       <div className="absolute bottom-0 left-0 right-0 p-6 transition-opacity duration-300 group-hover:opacity-0">
-        <p className="text-white text-sm tracking-[0.1em]">{property.address}</p>
+        <p className="text-white text-sm tracking-widest">{property.address}</p>
       </div>
 
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
